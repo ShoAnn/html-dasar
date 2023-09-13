@@ -97,17 +97,28 @@ function clickButton() {
 
 document.querySelector(".cat").addEventListener("click", clickButton);
 
-const slidesContainer = document.getElementById("slides-container");
-const slide = document.querySelector(".slide");
-const prevButton = document.getElementById("slide-arrow-prev");
-const nextButton = document.getElementById("slide-arrow-next");
 
-nextButton.addEventListener("click", () => {
-    const slideWidth = slide.clientWidth;
-    slidesContainer.scrollLeft += slideWidth;
-});
+const buttonsWrapper = document.querySelector(".map");
+const slides = document.querySelector(".inner");
 
-prevButton.addEventListener("click", () => {
-    const slideWidth = slide.clientWidth;
-    slidesContainer.scrollLeft -= slideWidth;
+buttonsWrapper.addEventListener("click", e => {
+    if (e.target.nodeName === "BUTTON") {
+        Array.from(buttonsWrapper.children).forEach(item =>
+            item.classList.remove("active")
+        );
+        if (e.target.classList.contains("first")) {
+            slides.style.transform = "translateX(-0%)";
+            e.target.classList.add("active");
+        } else if (e.target.classList.contains("second")) {
+            slides.style.transform = "translateX(-25%)";
+            e.target.classList.add("active");
+        } else if (e.target.classList.contains('third')) {
+            slides.style.transform = 'translatex(-50%)';
+            e.target.classList.add('active');
+        } else if (e.target.classList.contains('fourth')) {
+            slides.style.transform = 'translatex(-75%)';
+            e.target.classList.add('active');
+            e.target.classList.add('active');
+        }
+    }
 });
