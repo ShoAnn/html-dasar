@@ -122,18 +122,21 @@ main {
 .cards {
     height: 50%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
 }
 
+
 .card {
+    box-sizing: border-box;
+    flex: 1 0 21%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
-    width: 25%;
+    height: 400px;
     font-size: calc(var(--spacer)*.75);
-    margin: calc(var(--spacer)*.25) calc(var(--spacer)*.5);
+    margin: var(--spacer) calc(var(--spacer)*.5);
     padding: calc(var(--spacer)*.75) calc(var(--spacer)*.5);
     border: calc(var(--border)*.25) solid var(--blue);
     overflow: auto;

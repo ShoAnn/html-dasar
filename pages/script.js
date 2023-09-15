@@ -101,24 +101,107 @@ document.querySelector(".cat").addEventListener("click", clickButton);
 const buttonsWrapper = document.querySelector(".map");
 const slides = document.querySelector(".inner");
 
-buttonsWrapper.addEventListener("click", e => {
-    if (e.target.nodeName === "BUTTON") {
-        Array.from(buttonsWrapper.children).forEach(item =>
-            item.classList.remove("active")
-        );
-        if (e.target.classList.contains("first")) {
-            slides.style.transform = "translateX(-0%)";
-            e.target.classList.add("active");
-        } else if (e.target.classList.contains("second")) {
-            slides.style.transform = "translateX(-25%)";
-            e.target.classList.add("active");
-        } else if (e.target.classList.contains('third')) {
-            slides.style.transform = 'translatex(-50%)';
-            e.target.classList.add('active');
-        } else if (e.target.classList.contains('fourth')) {
-            slides.style.transform = 'translatex(-75%)';
-            e.target.classList.add('active');
-            e.target.classList.add('active');
+if (buttonsWrapper !== null) {
+    buttonsWrapper.addEventListener("click", e => {
+        if (e.target.nodeName === "BUTTON") {
+            Array.from(buttonsWrapper.children).forEach(item =>
+                item.classList.remove("active")
+            );
+            if (e.target.classList.contains("first")) {
+                slides.style.transform = "translateX(-0%)";
+                e.target.classList.add("active");
+            } else if (e.target.classList.contains("second")) {
+                slides.style.transform = "translateX(-25%)";
+                e.target.classList.add("active");
+            } else if (e.target.classList.contains('third')) {
+                slides.style.transform = 'translatex(-50%)';
+                e.target.classList.add('active');
+            } else if (e.target.classList.contains('fourth')) {
+                slides.style.transform = 'translatex(-75%)';
+                e.target.classList.add('active');
+                e.target.classList.add('active');
+            }
         }
+    })
+} else {
+    console.log("Element with class 'map' not found.");
+}
+
+
+// product data array
+const cardData = [
+    {
+        name: "Chengdu J-20",
+        imgPath: "../assets/images/Chengdu J-20.jpg",
+        desc: "The Chengdu J-20, also known as Mighty Dragon, is a twinjet all-weather stealth fighter aircraft developed by China's Chengdu Aerospace Corporation for the People's Liberation Army Air Force. The J-20 is designed as an air superiority fighter with precision strike capability. Wikipedia"
+    },
+    {
+        name: "F-35 Lightning II",
+        imgPath: "../assets/images/f35_lightning_II.jpg",
+        desc: "The Lockheed Martin F-35 Lightning II is an American family of single-seat, single-engine, all-weather stealth multirole combat aircraft that is intended to perform both air superiority and strike missions. It is also able to provide electronic warfare and intelligence, surveillance, and reconnaissance capabilities."
+    },
+    {
+        name: "F-22 Raptor",
+        imgPath: "../assets/images/f22_raptor.jpg",
+        desc: "The Lockheed Martin F-22 Raptor is an American single-seat, twin-engine, supersonic all-weather stealth fighter aircraft developed for the United States Air Force. Wikipedia"
+    },
+    {
+        name: "Sukhoi Su-57",
+        imgPath: "../assets/images/Sukhoi Su-57.jpg",
+        desc: "The Sukhoi Su-57 is a twin-engine stealth multirole fighter aircraft developed by Sukhoi. It is the product of the PAK FA programme, which was initiated in 1999 as a more modern and affordable alternative to the MFI. Sukhoi's internal designation for the aircraft is T-50. Wikipedia"
+    },
+    {
+        name: "Boeing X-53 Active Aeroelastic Wing",
+        imgPath: "../assets/images/Boeing X-53 Active Aeroelastic Wing.jpg",
+        desc: "The X-53 Active Aeroelastic Wing development program is a completed American research project that was undertaken jointly by the Air Force Research Laboratory, Boeing Phantom Works and NASA's Dryden Flight Research Center, where the technology was flight tested on a modified McDonnell Douglas F/A-18 Hornet. Wikipedia"
+    },
+    {
+        name: "Eurofighter Typhoon",
+        imgPath: "../assets/images/Eurofighter Typhoon.jpg",
+        desc: "The Eurofighter Typhoon is a European multinational twin-engine, canard delta wing, multirole fighter.[3][4] The Typhoon was designed originally as an air-superiority fighter[5] and is manufactured by a consortium of Airbus, BAE Systems and Leonardo that conducts the majority of the project through a joint holding company, Eurofighter Jagdflugzeug GmbH. The NATO Eurofighter and Tornado Management Agency, representing the UK, Germany, Italy and Spain, manages the project and is the prime customer.[6]"
+    },
+    {
+        name: "General Dynamics F-16 Fighting Falcon",
+        imgPath: "../assets/images/General Dynamics F-16 Fighting Falcon.jpg",
+        desc: "The General Dynamics F-16 Fighting Falcon is an American single-engine supersonic multirole fighter aircraft originally developed by General Dynamics for the United States Air Force. Designed as an air superiority day fighter, it evolved into a successful all-weather multirole aircraft. Wikipedia"
+    },
+    {
+        name: "Sukhoi Su-34",
+        imgPath: "../assets/images/Sukhoi Su-34.jpg",
+        desc: "The Sukhoi Su-34 is a Soviet-origin Russian twin-engine, twin-seat, all-weather supersonic medium-range fighter-bomber/strike aircraft. It first flew in 1990, intended for the Soviet Air Forces, and it entered service in 2014 with the Russian Air Force. Wikipedia"
     }
+];
+
+
+
+// displaying array
+const cardContainer = document.querySelector('.cards');
+
+cardData.forEach(card => {
+    const cardElement = document.createElement('div');
+    cardElement.classList.add('card');
+
+    const imgElement = document.createElement('div');
+    imgElement.classList.add('img');
+    const img = document.createElement('img');
+    img.classList.add('img-thumbnail');
+    img.src = card.imgPath;
+    img.alt = card.name;
+    imgElement.appendChild(img);
+
+    const titleElement = document.createElement('div');
+    titleElement.classList.add('card-title');
+    const strong = document.createElement('strong');
+    strong.textContent = card.name;
+    titleElement.appendChild(strong);
+
+    const descElement = document.createElement('p');
+    descElement.classList.add('card-desc');
+    descElement.textContent = card.desc;
+
+    cardElement.appendChild(imgElement);
+    cardElement.appendChild(titleElement);
+    cardElement.appendChild(descElement);
+
+    cardContainer.appendChild(cardElement);
 });
