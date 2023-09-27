@@ -172,36 +172,98 @@ const cardData = [
     }
 ];
 
-
-
 // displaying array
-const cardContainer = document.querySelector('.cards');
+function displayDataFromArr(arr, divContainer) {
+    arr.forEach(card => {
+        const cardElement = document.createElement('div');
+        cardElement.classList.add('card');
 
-cardData.forEach(card => {
-    const cardElement = document.createElement('div');
-    cardElement.classList.add('card');
+        const imgElement = document.createElement('div');
+        imgElement.classList.add('img');
+        const img = document.createElement('img');
+        img.classList.add('img-thumbnail');
+        img.src = card.imgPath;
+        img.alt = card.name;
+        imgElement.appendChild(img);
 
-    const imgElement = document.createElement('div');
-    imgElement.classList.add('img');
-    const img = document.createElement('img');
-    img.classList.add('img-thumbnail');
-    img.src = card.imgPath;
-    img.alt = card.name;
-    imgElement.appendChild(img);
+        const titleElement = document.createElement('div');
+        titleElement.classList.add('card-title');
+        const strong = document.createElement('strong');
+        strong.textContent = card.name;
+        titleElement.appendChild(strong);
 
-    const titleElement = document.createElement('div');
-    titleElement.classList.add('card-title');
-    const strong = document.createElement('strong');
-    strong.textContent = card.name;
-    titleElement.appendChild(strong);
+        const descElement = document.createElement('p');
+        descElement.classList.add('card-desc');
+        descElement.textContent = card.desc;
 
-    const descElement = document.createElement('p');
-    descElement.classList.add('card-desc');
-    descElement.textContent = card.desc;
+        cardElement.appendChild(imgElement);
+        cardElement.appendChild(titleElement);
+        cardElement.appendChild(descElement);
 
-    cardElement.appendChild(imgElement);
-    cardElement.appendChild(titleElement);
-    cardElement.appendChild(descElement);
+        divContainer.appendChild(cardElement);
+    })
+}
 
-    cardContainer.appendChild(cardElement);
-});
+const cardsContainer = document.querySelector('.cards');
+if (cardsContainer !== null) {
+    displayDataFromArr(cardData, cardsContainer);
+} else {
+    console.log("Element with class 'cards-api' not found.");
+}
+
+
+// --- fetch POST ( sudah dijalankan ) ---
+
+// async function postJSON(url, data) {
+//     try {
+//         const response = await fetch(url, {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json;charset=utf-8",
+//             },
+//             body: JSON.stringify(data)
+//         });
+//         const result = await response.json();
+//         console.log("Success:", result);
+
+//     } catch (error) {
+//         console.error("Error:", error);
+//     }
+// };
+
+// cardData.forEach(obj => {
+//     postJSON("https://crudcrud.com/api/c87e1fad9baa49e88e67943a29c034b3/product", obj);
+// })
+
+// === end fetch POST ===
+
+// --- fetch GET ---
+async function getCrud(url) {
+    const response = await fetch(url);
+    if (!response.ok) {
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message);
+    }
+
+    const data = await response.json();
+    return data;
+}
+const fetchBtn = document.querySelector(".btn-fetch");
+if (fetchBtn !== null) {
+    fetchBtn.addEventListener("click", () => {
+        getCrud('https://crudcrud.com/api/c87e1fad9baa49e88e67943a29c034b3/product')
+            .then((res) => {
+                console.log(res);
+                const cardsApiContainer = document.querySelector('.cards-api');
+                if (cardsApiContainer !== null) {
+                    displayDataFromArr(res, cardsApiContainer);
+                } else {
+                    console.log("Element with class 'cards-api' not found.");
+                }
+            }).catch((error => {
+                console.log(error);
+            }))
+    })
+} else {
+    console.log("element is null")
+}
