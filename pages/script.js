@@ -211,7 +211,6 @@ if (cardsContainer !== null) {
     console.log("Element with class 'cards-api' not found.");
 }
 
-
 // --- fetch POST ( sudah dijalankan ) ---
 
 // async function postJSON(url, data) {
@@ -267,3 +266,4 @@ if (fetchBtn !== null) {
 } else {
     console.log("element is null")
 }
+// === end fetch GET ===
